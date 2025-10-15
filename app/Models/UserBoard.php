@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserBoard extends Model
+class UserBoard extends Pivot
 {
-    public function infoBoard(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(Board::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function boards(): BelongsTo
+    {
+        return $this->belongsTo(Board::class);
     }
 }

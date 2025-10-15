@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_boards', function (Blueprint $table) {
-            $table->string('permission');
+        Schema::create('board_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('board_id')->constrained();
+            $table->string('permission')->default('A');
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_boards');
+        Schema::dropIfExists('board_user');
     }
 };

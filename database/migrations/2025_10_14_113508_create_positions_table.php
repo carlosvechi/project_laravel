@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
-            $table->id('id');
+        Schema::create('positions', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('board_id')->constrained();
+            $table->integer('cod');
+            $table->string('descricao');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boards');
+        Schema::dropIfExists('positions');
     }
 };

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 class User extends Authenticatable
@@ -52,13 +50,28 @@ class User extends Authenticatable
         ];
     }
 
-    public function boardsUser(): HasMany
+   public function boards()
     {
-        return $this->hasMany(UserBoard::class);
+        return $this->belongsToMany(Board::class)->using(UserBoard::class)->withPivot(['user_id','board_id']);
     }
 
-    public function taskUser(): HasMany
+    public function tasks() 
     {
-        return $this->hasMany(UserTask::class);
+        return $this->belongsToMany(Task::class)->using(UserTask::class)->withPivot(['user_id', 'task_id']);
+    }
+
+    public function attaches() 
+    {
+        return $this->hasMany(Attach::class);
+    }
+
+    public function comments() 
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function steps()
+    {
+        return $this->hasMany(Step::class);
     }
 }
