@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
-            $table->id('id');
-            $table->timestamps();
+        Schema:: table('attaches', function(Blueprint $table) {
+            $table->text('url')->after('id');
+            $table->integer('qtd')->after('url');
+            $table->foreignId('task_id')->constrained()->after('qtd');
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boards');
+        //
     }
 };

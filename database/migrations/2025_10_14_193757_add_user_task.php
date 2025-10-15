@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
-            $table->id('id');
-            $table->timestamps();
+        Schema:: table('user_tasks', function(Blueprint $table) {
+            $table->foreignId('user_id')->constrained()->after('id');
+            $table->foreignId('task_id')->constrained()->after('user_id');
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boards');
+        //
     }
 };

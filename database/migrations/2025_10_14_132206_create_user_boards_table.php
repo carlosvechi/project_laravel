@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_boards', function (Blueprint $table) {
-            $table->id();
+            $table->string('permission');
             $table->timestamps();
         });
     }

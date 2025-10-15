@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
-            $table->id('id');
-            $table->timestamps();
-        });
+         Schema::table('users', function (Blueprint $table) {
+            $table->text('status')->after('name')->jsonNull('A');
+         });
     }
 
     /**
@@ -22,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boards');
+        //
     }
 };

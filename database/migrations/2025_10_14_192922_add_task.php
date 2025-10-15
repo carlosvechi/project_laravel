@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
-            $table->id('id');
-            $table->timestamps();
+        Schema:: table('tasks', function(Blueprint $table){
+            $table->string('nome')->after('id');
+            $table->foreignId('user_id')->constrained()->after('nome');
+            $table->string('asign_user')->after('nome');
+            $table->timestamp('dt_end')->after('created_at');
+            
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boards');
+        //
     }
 };
