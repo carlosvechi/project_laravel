@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attach extends Model
 {
-    public function user()
+    public function task()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Task::class);
     }
 }

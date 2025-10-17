@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('steps', function (Blueprint $table) {
             $table->id();
             $table->foreignId('task_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('descricao');
             $table->boolean('completed')->default(false);
             $table->timestamps();

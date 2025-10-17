@@ -60,7 +60,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Task::class)->using(UserTask::class)->withPivot(['user_id', 'task_id']);
     }
 
-    public function attaches() 
+     public function attaches() 
     {
         return $this->hasMany(Attach::class);
     }
