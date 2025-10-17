@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue';
 // import draggable from 'vuedraggable'
-import TheCard from './TheCard.vue';
+import TheCard from '../auth/the/TheCard.vue';
 
 const colunas = inject('lista_cols');
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Board;
+use App\Models\Position;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -13,7 +15,7 @@ class BoardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('web/boards');
+        return Inertia::render('Boards');
     }
 
     /**
@@ -25,11 +27,27 @@ class BoardController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
-        //
+        $validado = $request->validate([
+            'board_id' => 'required|id',
+            'descricao' => 'required|string|min:5',
+            'status' => 'required',
+            
+        ]);
+
+        $coluna = Position::create([
+            'board_id' => $request->board_id,
+            'descricao' => $request->descricao,
+            'status' => $request->status,
+        ]);
+
+        // return response()->json([
+        //     'coluna' => $coluna,
+        // ]);
     }
 
     /**
@@ -43,9 +61,9 @@ class BoardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $id)
     {
-        return 'estou no index';
+        //
     }
 
     /**
@@ -53,7 +71,22 @@ class BoardController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+            $position = Board::find(1)->position()->where('id', $id)->get()->first();
+            $request->validate([
+                //validacao = função de criar
+
+            
+            ]);
+
+            $position->descricao = $request->descricao;
+
+            $position->update();
+
+        }catch(Exception $e){
+
+        }
+        
     }
 
     /**

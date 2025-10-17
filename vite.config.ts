@@ -12,6 +12,7 @@ export default defineConfig({
             ssr: 'resources/js/ssr.ts',
             refresh: true,
         }),
+        vueDevTools(),
         tailwindcss(),
         wayfinder({
             formVariants: true,
@@ -24,6 +25,6 @@ export default defineConfig({
                 },
             },
         }),
-        vueDevTools(),
+        
     ],
 });

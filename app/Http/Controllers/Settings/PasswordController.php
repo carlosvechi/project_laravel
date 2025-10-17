@@ -12,13 +12,13 @@ use Inertia\Response;
 
 class PasswordController extends Controller
 {
-    /**
-     * Show the user's password settings page.
-     */
-    public function edit(): Response
-    {
-        return Inertia::render('settings/Password');
-    }
+    // /**
+    //  * Show the user's password settings page.
+    //  */
+    // // public function edit(): Response
+    // // {
+    // //     return Inertia::render('settings/Password');
+    // // }
 
     /**
      * Update the user's password.

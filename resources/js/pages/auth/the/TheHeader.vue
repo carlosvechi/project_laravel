@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container-fluid">
             <a href="" class="navbar-brand">
-                <img src="./img/freeline.png" alt="" style="width:60px;" class="rounded-pill">
+                <img src="../the/freeline.png" alt="" style="width:60px;" class="rounded-pill">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <span class="navbar-toggler-icon"></span>

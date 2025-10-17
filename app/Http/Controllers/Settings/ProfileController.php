@@ -16,13 +16,13 @@ class ProfileController extends Controller
     /**
      * Show the user's profile settings page.
      */
-    public function edit(Request $request): Response
-    {
-        return Inertia::render('settings/Profile', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => $request->session()->get('status'),
-        ]);
-    }
+    // public function edit(Request $request): Response
+    // {
+    //     return Inertia::render('settings/Profile', [
+    //         'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+    //         'status' => $request->session()->get('status'),
+    //     ]);
+    // }
 
     /**
      * Update the user's profile information.
