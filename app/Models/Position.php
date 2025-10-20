@@ -8,9 +8,8 @@ class Position extends Model
 {
     protected $fillable = [
         'board_id',
-        'cod',
-        'descricao',
-        'status'
+        'title',
+        'position_order'
     ];
 
 

@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('board_id')->constrained();
-            $table->integer('cod');
-            $table->string('descricao');
-            $table->string('status');
+            $table->string('title');
+            $table->integer('position_order');
             $table->timestamps();
         });
     }

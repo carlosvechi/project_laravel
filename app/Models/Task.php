@@ -6,6 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+
+    protected $fillable = [
+        'title',
+        'descricao',
+        'asign_user',
+        'position_id',
+        'users_id',
+        'dt_start',
+        'dt_end'
+    ];
+
+    
+
+
     public function users() {
         return $this->belongsToMany(User::class)->using(UserTask::class)->withPivot(['user_id', 'task_id']);
     }

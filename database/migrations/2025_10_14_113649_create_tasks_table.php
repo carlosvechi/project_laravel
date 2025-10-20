@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('position_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->string('nome');
-            $table->string('asign_user');
+            $table->foreignId('asign_user')->constrained(table: 'users');
+
+            $table->string('title');
+            $table->string('descricao');
+            
+            $table->timestamp('dt_start');
             $table->timestamp('dt_end');
             $table->timestamps();
         });
