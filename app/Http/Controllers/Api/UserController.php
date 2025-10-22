@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -46,11 +47,16 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
+        try{
         $validated = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email',
-            'password' => 'sometimes|min:8',
+            'status' => 'sometimes',
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email',
+            'password' => ['sometimes', 'min:8', Rules\Password::defaults()]
         ]);
+        }catch(\Exception $e) {
+           return response()->json($e->getMessage(), 400);
+        }
 
         $user = User::find($id);
 

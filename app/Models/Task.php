@@ -12,7 +12,7 @@ class Task extends Model
         'descricao',
         'asign_user',
         'position_id',
-        'users_id',
+        'user_id',
         'dt_start',
         'dt_end'
     ];

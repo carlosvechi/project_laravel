@@ -1,51 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Task;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         return response()->json(Task::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        $validated = $request->response([
+        try{
+             $validated = $request->validate([
             'title' => 'required|string|max:50',
-            'descricao' => 'nullable|string|max:255',
-            'asign_user' => 'required|exists:users, id',
-            'position_id'=> 'required|exists:positions, id',
-            'users_id' => 'required|exists:users, id',
+            'descricao' => 'sometimes|string|max:255',
+            'asign_user' => 'nullable|exists:users,id',
+            'position_id'=> 'required|exists:positions,id',
+            'user_id' => 'nullable|exists:users,id',
             'dt_start' => 'nullable|date',
             'dt_end' => 'nullable|date',
-        ]);
+            ]);
 
-        $task = Task::create($validated);
-
-        return response()->json($task, 201);
+            
+            $task = Task::create($validated);
+            
+            return response()->json($task, 201);
+        }catch(\Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $task = Task::find($id);
@@ -57,15 +48,14 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
-    
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:50',
-            'descricao' => 'nullable|string|max:255',
-            'asign_user' => 'required|exists:users, id',
-            'dt_start' => 'nullable|date',
-            'dt_end' => 'nullable|date'
+            'title' => 'sometimes|string|max:50',
+            'descricao' => 'sometimes|string|max:255',
+            'asign_user' => 'sometimes|exists:users, id',
+            'dt_start' => 'sometimes|date',
+            'dt_end' => 'sometimes|date'
         ]);
 
         $task = Task::find($id);

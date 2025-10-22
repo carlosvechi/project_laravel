@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Board;
-use App\Models\Position;
-use Inertia\Inertia;
-use Inertia\Response;
+
 
 class BoardController extends Controller
 {
@@ -15,7 +14,12 @@ class BoardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Boards');
+        return response()->json(Board::all());
+        
+        // $user = $request->user;
+        // $user = User::find(1);
+        // $board = $user->boards()->with('position.task')->get();
+        // return response()->json($board, 200);
     }
 
 
@@ -25,9 +29,13 @@ class BoardController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'requerid|string|max:255',
-        ]);
+        try{
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+            ]);
+        }catch(\Exception $e){
+            return response()->json($e->getMessage(), 400);
+        }
 
        $board = Board::create($validated);
 
@@ -37,7 +45,7 @@ class BoardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
       $board = Board::find($id);
 
@@ -50,10 +58,14 @@ class BoardController extends Controller
 
     public function update(Request $request, string $id)
     {
+        try{
+            $validated = $request->validate([
+            'title' => 'sometimes|string|max:255|min:5'
+            ]);
+        }catch(\Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
         
-        $validated = $request->validate([
-            'title' => 'required|string|max:255'
-        ]);
 
         $board = Board::find($id);
 
@@ -74,7 +86,7 @@ class BoardController extends Controller
     {
         $board = Board::find($id);
 
-        if($board){
+        if(!$board){
             return response()->json(['message' => 'Board não encontrado!'], 404);
         }
 

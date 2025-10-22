@@ -12,6 +12,7 @@ class CommentController extends Controller
     {
        return response()->json(Comment::all());
     }
+    
     public function store(Request $request)
     {
        $validated = $request->validate([
