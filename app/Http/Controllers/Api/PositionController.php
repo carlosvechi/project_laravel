@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Position;
 
@@ -17,11 +18,16 @@ class PositionController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'board_id' => 'required|exists:boards, id',
-            'title' => 'requerid|string|max:50',
+        try{
+            $validated = $request->validate([
+            'board_id' => 'required|exists:boards,id',
+            'title' => 'required|string|max:50',
             'position_order' => 'required|integer'
         ]);
+        }catch(\Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+        
 
         $position = Position::create($validated);
 
@@ -42,10 +48,15 @@ class PositionController extends Controller
     
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
+        try{
+            $validated = $request->validate([
             'title' => 'sometimes|string|min:5|max:50',
-            'position_order' => 'sometimes|integer|min:5'
+            'position_order' => 'sometimes|integer'
         ]);
+        }catch(\Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+        
 
         $position = Position::find($id);
 
@@ -68,5 +79,7 @@ class PositionController extends Controller
         }
 
         $position->delete();
+
+        return response()->json(['message' => 'Posição deletada com sucesso!'], 201);
     }
 }

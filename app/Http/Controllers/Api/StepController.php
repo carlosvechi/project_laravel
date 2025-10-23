@@ -14,12 +14,17 @@ class StepController extends Controller
     }
     public function store(Request $request)
     {
-      $validated = $request->validate([
-         'task_id' => 'required|exists: tasks, id',
-         'user_id' => 'required|exists: users, id',
+      try{
+        $validated = $request->validate([
+         'task_id' => 'required|exists:tasks,id',
+         'user_id' => 'required|exists:users,id',
          'descricao' => 'nullable|string|max:255',
          'completed' => 'nullable|boolean'
       ]);
+      }catch(\Exception $e) {
+        return response()->json($e->getMessage(), 400);
+      }
+      
 
       $step = Step::create($validated);
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\{BoardController, CommentController, UserController, TaskController, StepController, AttachController};
+use App\Http\Controllers\Api\{BoardController, CommentController, UserController, TaskController, StepController, AttachController, PositionController};
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -14,4 +14,5 @@ Route::get('/user', function (Request $request) {
     Route::resource('tasks', TaskController::class);
     Route::resource('comments', CommentController::class);
     Route::resource('steps', StepController::class);
-    Route::resource('attacches', AttachController::class);
+    Route::resource('attaches', AttachController::class);
+    Route::resource('positions', PositionController::class);

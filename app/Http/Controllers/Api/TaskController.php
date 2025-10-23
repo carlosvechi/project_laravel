@@ -50,13 +50,18 @@ class TaskController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
+        try{
+            $validated = $request->validate([
             'title' => 'sometimes|string|max:50',
             'descricao' => 'sometimes|string|max:255',
             'asign_user' => 'sometimes|exists:users, id',
-            'dt_start' => 'sometimes|date',
-            'dt_end' => 'sometimes|date'
+            'dt_start' => 'nullable|date',
+            'dt_end' => 'nullable|date'
         ]);
+        }catch(\Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+        
 
         $task = Task::find($id);
 

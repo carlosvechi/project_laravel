@@ -48,12 +48,12 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         try{
-        $validated = $request->validate([
+            $validated = $request->validate([
             'status' => 'sometimes',
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email',
             'password' => ['sometimes', 'min:8', Rules\Password::defaults()]
-        ]);
+            ]);
         }catch(\Exception $e) {
            return response()->json($e->getMessage(), 400);
         }
