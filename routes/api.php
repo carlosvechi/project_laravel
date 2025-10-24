@@ -9,6 +9,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+Route::prefix('v1')->group(function () {
     Route::resource('boards', BoardController::class);
     Route::resource('users', UserController::class);
     Route::resource('tasks', TaskController::class);
@@ -16,3 +17,7 @@ Route::get('/user', function (Request $request) {
     Route::resource('steps', StepController::class);
     Route::resource('attaches', AttachController::class);
     Route::resource('positions', PositionController::class);
+    Route::get('/teste', function () {
+        return response()->json(['message' => 'API LARAVEL FUNCIONANDO!']);
+    });
+});
